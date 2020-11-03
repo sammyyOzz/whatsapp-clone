@@ -90,3 +90,13 @@
 .chat__footer > form > button {
     display: none;
 }
+
+@media (max-width: 1100px) {
+    .chat {
+        flex: 1;
+    }
+
+    /* .chat__headerRight {
+        display: none;
+    } */
+}

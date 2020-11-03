@@ -1,5 +1,6 @@
 import React from 'react'
 import './Sidebar.css'
+import './TransitionModal.css'
 import Avatar from '@material-ui/core/Avatar'
 import DonutLargeIcon from '@material-ui/icons/DonutLarge';
 import ChatIcon from '@material-ui/icons/Chat';
@@ -12,7 +13,7 @@ import { useEffect } from 'react';
 import db from './firebase';
 import { useStateValue } from './StateProvider';
 
-function Sidebar() {
+function Sidebar({ modalView }) {
     const [rooms, setRooms] = useState([])
     const [{ user }, dispatch] = useStateValue()
 
@@ -35,10 +36,10 @@ function Sidebar() {
     }, [])
 
     return (
-        <div className="sidebar">
-            <div className="sidebar__header">
+        <div className={ ! modalView ? "sidebar" : "modal" }>
+            <div className={ ! modalView ? "sidebar__header" : "modal__header" }>
                 <Avatar src={user?.photoURL} />
-                <div className="sidebar__headerRight">
+                <div className={ ! modalView ? "sidebar__headerRight" : "modal__headerRight" }>
                     <IconButton>
                         <DonutLargeIcon />
                     </IconButton>
@@ -51,14 +52,14 @@ function Sidebar() {
                 </div>
             </div>
 
-            <div className="sidebar__search">
-                <div className="sidebar__searchContainer">
+            <div className={ ! modalView ? "sidebar__search" : "modal__search" }>
+                <div className={ ! modalView ? "sidebar__searchContainer" : "modal__searchContainer" }>
                     <SearchOutlined />
                     <input placeholder="Search or start new chat" type="text" />
                 </div>
             </div>
 
-            <div className="sidebar__chats">
+            <div className={ ! modalView ? "sidebar__chats" : "modal__chats" }>
                 <SidebarChat addNewChat/>
                 {rooms.map(room => (
                     <SidebarChat 
@@ -69,7 +70,7 @@ function Sidebar() {
                 ))}
             </div>
         </div>
-    )
+    ) 
 }
 
 export default Sidebar

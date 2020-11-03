@@ -18,7 +18,7 @@ function Login() {
                 user: result.user,
             })
         })
-        .catch(error => alert(error.message))
+        .catch(error => alert("Something went wrong, please try to log in again"))
     }
     return (
         <div className="login">

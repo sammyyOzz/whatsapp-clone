@@ -7,7 +7,9 @@ import SearchOutlined from '@material-ui/icons/SearchOutlined';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon'
 import MicIcon from '@material-ui/icons/Mic'
-import { useParams } from 'react-router-dom';
+import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
+import HomeIcon from '@material-ui/icons/Home';
+import { useParams, Link } from 'react-router-dom';
 import db from './firebase';
 import { useStateValue } from './StateProvider';
 import firebase from 'firebase'
@@ -62,6 +64,9 @@ function Chat() {
         <div className="chat">
             
             <div className="chat__header">
+                <IconButton>
+                    <KeyboardBackspaceIcon />
+                </IconButton>
                 <Avatar src={`https://avatars.dicebear.com/api/human/${seed}.svg`} />
                 <div className="chat__headerInfo">
                     <h3>{roomName}</h3>
@@ -78,19 +83,24 @@ function Chat() {
                     <IconButton>
                         <SearchOutlined />
                     </IconButton>
-                    <IconButton>
-                        <AttachFileIcon />
-                    </IconButton>
-                    <IconButton>
-                        <MoreVertIcon />
-                    </IconButton>
+                    <Link to="/modal">
+                        <IconButton>
+                            <AttachFileIcon />
+                        </IconButton>
+                    </Link>
+                    <Link to="/">
+                        <IconButton>
+                            {/* <MoreVertIcon /> */}
+                            <HomeIcon />
+                        </IconButton>
+                    </Link>
                 </div>
             </div>
 
             <div className="chat__body">
                 {messages.map(message => (
-                    <p className={`chat__message ${message.name === user.displayName && "chat__reciever"}`}>
-                        <span className="chat__name">{message.name}</span>
+                    <p key={message.timestamp} className={`chat__message ${message.name === user.displayName && "chat__reciever"}`}>
+                        <span className="chat__name" style={{color: 'white'}}>{message.name}</span>
                             {message.message}
                         <span className="chat__timestamp">
                             {new Date(message.timestamp?.toDate()).toUTCString()}
