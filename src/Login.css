@@ -7,7 +7,7 @@
 }
 
 .login__container {
-    padding: 100px;
+    padding: 70px;
     text-align: center;
     background-color: white;
     border-radius: 10px;
@@ -23,6 +23,6 @@
 .login__container > button {
     margin-top: 50px;
     text-transform: inherit !important;
-    background-color: #0a8d48 !important;
+    background-color: #37474f !important;  /* #0a8d48 */
     color: white
 }

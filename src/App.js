@@ -11,7 +11,6 @@ function App() {
   const [{ user }, dispatch] = useStateValue()
 
   return (
-    //BEM naming convention
     <div className="app">
       { !user ? (
         <Login />

@@ -60,7 +60,7 @@
 
 .chat__body {
     flex: 1;
-    background-image: url("https://image.freepik.com/free-vector/modern-whatsapp-background_23-2147900936.jpg");
+    background-image: url("./chatImage.png");
     background-position: center;
     background-repeat: repeat;
     padding: 30px;

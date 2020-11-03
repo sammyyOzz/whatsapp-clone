@@ -3,6 +3,7 @@ import './SidebarChat.css'
 import Avatar from '@material-ui/core/Avatar'
 import db from './firebase';
 import { Link } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
 
 
 function SidebarChat({ id, name, addNewChat }) {
@@ -49,7 +50,7 @@ function SidebarChat({ id, name, addNewChat }) {
         </Link>
     ) : (
         <div onClick={createChat} className='sidebarChat'>
-            <h2>Add new chat</h2>
+            <Button style={{backgroundColor: '#006064', color: 'white'}} variant="contained" fullWidth><h3>😄 Add New Chat 😄</h3></Button>
         </div>
     )
 }
