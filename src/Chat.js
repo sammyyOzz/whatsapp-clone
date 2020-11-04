@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import './Chat.css'
 import Avatar from '@material-ui/core/Avatar'
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import IconButton from '@material-ui/core/IconButton';
 import SearchOutlined from '@material-ui/icons/SearchOutlined';
-import AttachFileIcon from '@material-ui/icons/AttachFile';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon'
-import MicIcon from '@material-ui/icons/Mic'
-import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import HomeIcon from '@material-ui/icons/Home';
+import SendIcon from '@material-ui/icons/Send';
+import MenuIcon from '@material-ui/icons/Menu';
 import { useParams, Link } from 'react-router-dom';
 import db from './firebase';
 import { useStateValue } from './StateProvider';
+import { actionTypes } from './reducer'
 import firebase from 'firebase'
 
 function Chat() {
@@ -44,56 +43,63 @@ function Chat() {
         setSeed(Math.floor(Math.random() * 5000))
     }, [roomId])
 
+    useEffect(() => {
+        dispatch({
+            type: actionTypes.SET_MENU,
+            mobileMenu: false,
+        })
+    },[roomId])
+
     const sendMessage = e => {
         e.preventDefault()
 
-      db
-        .collection('rooms')
-        .doc(roomId)
-        .collection("messages")
-        .add({
-            message: input,
-            name: user?.displayName,
-            timestamp: firebase.firestore.FieldValue.serverTimestamp()
-        })
+        if(input) {
+          db
+            .collection('rooms')
+            .doc(roomId)
+            .collection("messages")
+            .add({
+                message: input,
+                name: user?.displayName,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            })
 
-        setInput("")
+            setInput("")
+        }
+    }
+
+    const handleMenuOpen = () => {
+        dispatch({
+            type: actionTypes.SET_MENU,
+            mobileMenu: true,
+        })
     }
 
     return (
         <div className="chat">
             
             <div className="chat__header">
-                <IconButton>
-                    <KeyboardBackspaceIcon />
-                </IconButton>
                 <Avatar src={`https://avatars.dicebear.com/api/human/${seed}.svg`} />
                 <div className="chat__headerInfo">
                     <h3>{roomName}</h3>
                     <p>
                         last seen{" "}
-                        {new Date(
-                            messages[messages.length - 1]?.
-                            timestamp?.toDate()
-                            ).toUTCString()}
+                        {new Date(messages[messages.length - 1]?.timestamp?.toDate()).toUTCString()}
                     </p>
                 </div>
 
                 <div className="chat__headerRight">
-                    <IconButton>
-                        <SearchOutlined />
-                    </IconButton>
-                    <Link to="/modal">
-                        <IconButton>
-                            <AttachFileIcon />
-                        </IconButton>
-                    </Link>
                     <Link to="/">
                         <IconButton>
-                            {/* <MoreVertIcon /> */}
                             <HomeIcon />
                         </IconButton>
                     </Link>
+                    <div class="menuIcon" onClick={handleMenuOpen}>
+                        <IconButton>
+                            <MenuIcon />
+                        </IconButton>
+                    </div>
+                        
                 </div>
             </div>
 
@@ -119,9 +125,10 @@ function Chat() {
                         placeholder="Type a message"
                         onChange={e => setInput(e.target.value)} 
                     />
-                    <button onClick={sendMessage} type="submit">Send Message</button>
+                    <IconButton onClick={sendMessage} type="submit">
+                        <SendIcon />
+                    </IconButton>
                 </form>
-                <MicIcon />
             </div>
         </div>
     )

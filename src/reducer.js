@@ -1,9 +1,11 @@
 export const initialState = {
     user: null,
+    mobileMenu: false
 }
 
 export const actionTypes = {
     SET_USER: "SET_USER",
+    SET_MENU: "SET_MENU"
 }
 
 const reducer = (state, action) => {
@@ -12,6 +14,12 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 user: action.user,
+            };
+
+        case actionTypes.SET_MENU:
+            return {
+                ...state,
+                mobileMenu: action.mobileMenu
             }
 
         default: 

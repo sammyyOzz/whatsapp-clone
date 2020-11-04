@@ -54,7 +54,7 @@
 
 .chat__headerRight {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     min-width: 100px;
 }
 
@@ -87,16 +87,18 @@
     border: none;
 }
 
-.chat__footer > form > button {
+.menuIcon {
     display: none;
 }
+
 
 @media (max-width: 1100px) {
     .chat {
         flex: 1;
     }
 
-    /* .chat__headerRight {
-        display: none;
-    } */
+    .menuIcon {
+        display: flex;
+    }
+
 }

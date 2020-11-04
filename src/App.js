@@ -4,11 +4,21 @@ import Chat from './Chat.js'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Login from './Login';
 import { useStateValue } from './StateProvider';
-import TransitionsModal from './TransitionsModal';
+import { actionTypes } from './reducer'
+import TransitionModal from './TransitionsModal'
+import IconButton from '@material-ui/core/IconButton';
+import ForumIcon from '@material-ui/icons/Forum';
 
 
 function App() {
   const [{ user }, dispatch] = useStateValue()
+
+  const handleMenuOpen = () => {
+    dispatch({
+        type: actionTypes.SET_MENU,
+        mobileMenu: true,
+    })
+  }
 
   return (
     <div className="app">
@@ -18,20 +28,29 @@ function App() {
         <div className="app__body">
           <Router>
             <Sidebar />
+            <TransitionModal />
+
             <Switch>
 
-              <Route exact path="/modal">
-                <TransitionsModal />
-              </Route>
-              
               <Route exact path="/rooms/:roomId">
                 <Chat />
               </Route>
 
               <Route exact path="/">
+
                 <div className="app__home">
-                    <img src="https://i.pinimg.com/originals/25/b9/24/25b924f1d18fea2c7dfcb26a9905c1e8.png" alt="Profile Image"/>
-                    <h2>Coding is life...</h2>
+                
+                    <h3>Welcome </h3>
+                    <h1>{user?.displayName}</h1>
+                    <img src={user?.photoURL} alt="Profile"/>
+                    <h5>You are on whatsappClone</h5>
+
+                    <div className="app__homeHeader">
+                      <h4>⏬ Click icon below to start a chat ⏬</h4>
+                      <IconButton fontSize="large" onClick={handleMenuOpen} color="secondary">
+                        <ForumIcon fontSize="large" />
+                      </IconButton>
+                    </div>
                 </div>
               </Route>
             </Switch>

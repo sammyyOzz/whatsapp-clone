@@ -12,7 +12,7 @@ function SidebarChat({ id, name, addNewChat }) {
 
     useEffect(() => {
         if (id) {
-            db
+          db
             .collection('rooms')
             .doc(id)
             .collection('messages')
