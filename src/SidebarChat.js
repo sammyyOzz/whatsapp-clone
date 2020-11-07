@@ -2,13 +2,29 @@ import React, { useState, useEffect } from 'react'
 import './SidebarChat.css'
 import Avatar from '@material-ui/core/Avatar'
 import db from './firebase';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
+import { useStateValue } from './StateProvider';
+import { actionTypes } from './reducer'
 
 
 function SidebarChat({ id, name, addNewChat }) {
     const [seed, setSeed] = useState('');
     const [messages, setMessages] = useState('')
+    const [ { mobileMenu }, dispatch] = useStateValue()
+    
+    const history = useHistory()
+
+    const handleNav = () => {
+        history.push(`/rooms/${id}`)
+
+        if(mobileMenu) {
+            dispatch({
+                type: actionTypes.SET_MENU,
+                mobileMenu: false
+            })
+        }
+    }
 
     useEffect(() => {
         if (id) {
@@ -39,15 +55,15 @@ function SidebarChat({ id, name, addNewChat }) {
     };
 
     return !addNewChat ? (
-        <Link to={`/rooms/${id}`}>
-            <div className="sidebarChat">
+        // <Link to={`/rooms/${id}`}>
+            <div className="sidebarChat" onClick={handleNav}>
                 <Avatar src={`https://avatars.dicebear.com/api/human/${seed}.svg`} />
                 <div className="sidebarChat__info">
                     <h2>{name}</h2>
                     <p>{messages[0]?.message}</p>
                 </div>
             </div>
-        </Link>
+        // </Link>
     ) : (
         <div onClick={createChat} className='sidebarChat'>
             <Button style={{backgroundColor: '#006064', color: 'white'}} variant="contained" fullWidth><h3>😄 Add New Chat 😄</h3></Button>

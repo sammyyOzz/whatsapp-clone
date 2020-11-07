@@ -1,7 +1,9 @@
 .modal {
-    display: flex;
-    flex-direction: column;
-    flex: 0.35;
+    /* display: flex;
+    flex-direction: column; */
+    flex: 0.5;
+    /* padding-top: 100px; */
+    overflow: scroll;
 }
 
 .modal__search {
@@ -10,6 +12,7 @@
     background-color: #f6f6f6;
     height: 39px;
     padding: 10px;
+    overflow: scroll;
 }
 
 .modal__searchContainer {
@@ -36,6 +39,7 @@
     justify-content: space-between;
     padding: 20px;
     border-right: 1px solid lightgray;
+    overflow: scroll;
 }
 
 .modal__headerRight {
@@ -53,6 +57,5 @@
 .modal__chats {
     flex: 1;
     background-color: white;
-    overflow: scroll;
 }
 

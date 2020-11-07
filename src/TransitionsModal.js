@@ -8,26 +8,32 @@ import { useStateValue } from './StateProvider';
 import { actionTypes } from './reducer'
 import CancelPresentationIcon from '@material-ui/icons/CancelPresentation';
 import IconButton from '@material-ui/core/IconButton';
-import Grid from '@material-ui/core/Grid';
+
 
 const useStyles = makeStyles((theme) => ({
   modal: {
     display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    // alignItems: 'center',
+    // justifyContent: 'center',
+    overflow: 'scroll',
+    // flex:1
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
-    maxHeight: 680,
+    flex: 1,
     overflow: 'scroll'
   },
   header: {
     display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'baseline'
-  }
+    alignItems: 'baseline',
+    // paddingTop: 200
+  },
+  extendedIcon: {
+    marginRight: theme.spacing(1),
+  },
 }));
 
 function TransitionsModal() {
@@ -57,25 +63,21 @@ function TransitionsModal() {
         }}
       >
         <Fade in={mobileMenu}>
-          <Grid container>
-            <Grid item xs={1} />
-            <Grid item xs={10}>
-              <div className={classes.paper}>
-                <div className={classes.header}>
-                  <div>
-                    <strong>WhatsApp</strong>
-                  </div>
-                  <div>
-                    <IconButton onClick={handleClose}>
-                      <CancelPresentationIcon style={{ color: 'black'}} fontSize="large" />
-                    </IconButton>
-                  </div>
-                </div>
-                <Sidebar modalView />
+          <div className={classes.paper}>
+            <div className={classes.header}>
+              <div>
+                <strong>WhatsApp</strong>
               </div>
-            </Grid>
-            <Grid item xs={1} />
-          </Grid>
+              <div>
+                <IconButton onClick={handleClose}>
+                  <CancelPresentationIcon style={{ color: 'red'}} fontSize="large" />
+                </IconButton>
+              </div>
+            </div>
+            <div>
+              <Sidebar modalView />
+            </div>
+          </div>
         </Fade>
       </Modal>
     </div>

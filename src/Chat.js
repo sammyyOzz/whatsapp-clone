@@ -43,13 +43,6 @@ function Chat() {
         setSeed(Math.floor(Math.random() * 5000))
     }, [roomId])
 
-    useEffect(() => {
-        dispatch({
-            type: actionTypes.SET_MENU,
-            mobileMenu: false,
-        })
-    },[roomId])
-
     const sendMessage = e => {
         e.preventDefault()
 

@@ -9,6 +9,10 @@
     display: flex;
     align-items: center;
     border-bottom: 1px solid lightgray;
+    position: sticky;
+    top: 0;
+    background-color: #ededed;
+    z-index: 100;
 }
 
 .chat__headerInfo {
@@ -31,7 +35,7 @@
     padding: 10px;
     background-color: #ffffff;
     border-radius: 10px;
-    width: fit-content;
+    max-width: 300px;
     margin-bottom: 30px;
 }
 
@@ -73,6 +77,10 @@
     align-items: center;
     height: 62px;
     border-top: 1px solid lightgray;
+    position: sticky;
+    bottom: 0;
+    z-index: 100;
+    background-color: #ededed;
 }
 
 .chat__footer > form {
